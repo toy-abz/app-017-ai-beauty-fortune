@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日の運勢と意味のないラッキーアイテム占い</title>
+    <!-- Tailwind CSS CDN (スタイリング用) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-slate-800 rounded-2xl shadow-2xl p-6 text-center border border-slate-700">
+        <!-- タイトル -->
+        <h1 class="text-xl font-bold mb-2 text-pink-400">AI美女のシュール占い</h1>
+        <p class="text-xs text-slate-400 mb-6">今日の運勢と意味のないラッキーアイテム</p>
+
+        <!-- メインビジュアル / キャラクターエリア -->
+        <div class="relative bg-slate-900 rounded-xl p-4 mb-6 border border-slate-700 flex flex-col items-center justify-center min-h-[180px]">
+            <!-- 画像（AI美女のプレースホルダー：必要に応じて実際の画像URLやパスに変更してください） -->
+            <div id="ai-avatar" class="w-20 h-20 bg-pink-500/20 rounded-full flex items-center justify-center text-3xl mb-2 border-2 border-pink-400">
+                👩‍🦰
+            </div>
+            <!-- AI美女のコメント表示エリア -->
+            <p id="comment-text" class="text-sm text-slate-200 px-2 leading-relaxed">
+                「今日もあなたの運勢を厳しく、そしてシュールに占ってあげるわ。準備ができたらボタンを押してね。」
+            </p>
+        </div>
+
+        <!-- 結果表示エリア（最初は非表示） -->
+        <div id="result-area" class="hidden mb-6 text-left bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-xs text-slate-400">今日の運勢</span>
+                <span id="result-rank" class="text-lg font-extrabold text-yellow-400">大吉</span>
+            </div>
+            <div>
+                <span class="text-xs text-slate-400 block mb-1">ラッキーアイテム</span>
+                <p id="result-item" class="text-sm font-bold text-pink-300 bg-slate-800 p-2 rounded border border-slate-700">アイテム名</p>
+            </div>
+        </div>
+
+        <!-- 占いボタン -->
+        <button onclick="drawFortune()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition transform active:scale-95 mb-3">
+            占う ✨
+        </button>
+
+        <!-- X（Twitter）シェアボタン（最初は非表示） -->
+        <div id="share-area" class="hidden">
+            <a id="twitter-share-btn" href="#" target="_blank" class="block w-full bg-black hover:bg-slate-900 text-white text-sm font-semibold py-2.5 px-4 rounded-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                <span>𝕏 で結果をシェアする</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 占いロジックのJavaScript -->
+    <script>
+        const fortunes = [
+            {
+                rank: "大吉",
+                item: "通知が溜まりすぎて開くのが怖いインスタのアカウント",
+                comment: "既読スルーも怖いけど、未読スルーも怖いわ！ちゃんと返信するとあなたの運気はさらにあがるよ！"
+            },
+            {
+                rank: "中吉",
+                item: "友達からもらった聞いたことないブランドの紙袋",
+                comment: "え？なにそのブランド？知らないブランドの紙袋なんて使い道ないから捨てた方が運気上がるよ！"
+            },
+            {
+                rank: "小吉",
+                item: "会計したいのに電波不良で開かない決済アプリ",
+                comment: "事前にスタンバイしてる方が会計がスムーズね！前の人が遅いとイライラするからね！"
+            },
+            {
+                rank: "凶",
+                item: "いつか使う日がくると大事にとってある何につかうかわからないケーブル",
+                comment: "そのケーブル何につかうの？わからないけど取ってあるの？捨てた方が運気上がるよ！"
+            },
+            {
+                rank: "大凶",
+                item: "デザインが気に入って買ったけど、指に入らないリング",
+                comment: "デザインがいいのに身に付けられないってほんとざんねん。プロにサイズ直しを相談して身に付けてみて！きっと運気も爆上がりよ！"
+            }
+        ];
+
+        function drawFortune() {
+            // ランダムに1つ選ぶ
+            const randomIndex = Math.floor(Math.random() * fortunes.length);
+            const result = fortunes[randomIndex];
+
+            // 画面に反映
+            document.getElementById('result-area').classList.remove('hidden');
+            document.getElementById('share-area').classList.remove('hidden');
+            
+            document.getElementById('result-rank').innerText = result.rank;
+            document.getElementById('result-item').innerText = result.item;
+            document.getElementById('comment-text').innerText = "「" + result.comment + "」";
+
+            // X（Twitter）のシェア用リンクを動的生成
+            const shareText = encodeURIComponent(`今日の私の運勢は【${result.rank}】でした！\nラッキーアイテム：「${result.item}」\nAI美女：「${result.comment}」\n\n#AI美女のシュール占い`);
+            const shareUrl = `https://twitter.com/intent/tweet?text=${shareText}`;
+            document.getElementById('twitter-share-btn').href = shareUrl;
+        }
+    </script>
+</body>
+</html>
